@@ -1,21 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
     const userDisplay = document.getElementById("userDisplay");
-    const loginLink = document.getElementById("loginLink");
 
     // Check if user is logged in
     const user = JSON.parse(localStorage.getItem("user"));
 
-    if (user) {
-        // Replace login link with username & logout button
+    if (user && user.token) {
         userDisplay.innerHTML = `
-            
-            <button id="logoutBtn" style="margin-left:10px;margin-top:10px; background: none; border: none; color: red; cursor: pointer;">Logout</button>
+            <img src="images/profile-icon.png" id="profileIcon" alt="Profile" style="width:30px; cursor:pointer;">
+            <button id="logoutBtn" style="background:none; border:none; color:red; cursor:pointer; margin-left:10px;">Logout</button>
         `;
 
         // Logout functionality
         document.getElementById("logoutBtn").addEventListener("click", function () {
-            localStorage.removeItem("user"); // Clear user data
-            location.reload(); // Refresh page
+            localStorage.removeItem("user"); // Clear stored user data
+            sessionStorage.removeItem("lastPage"); // Remove stored last page
+            window.location.href = "login.html"; // Redirect to login page
         });
     }
 });
