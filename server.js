@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
@@ -7,43 +8,52 @@ const cors = require('cors');
 
 const app = express();
 const PORT = 3000;
-const JWT_SECRET = 'your_secret_key_here'; // Change this to a strong secret key
+const JWT_SECRET = 'Kishore@555';
 
-app.use(cors());
+// MongoDB Connection
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB Connected Successfully!"))
+  .catch((err) => console.error("❌ MongoDB Connection Failed:", err.message));
+
+app.use(cors()); // Allow all origins for now
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/coursecave', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log("Connected to MongoDB"))
-  .catch(err => console.log("MongoDB Connection Error:", err));
-
+// Define User Schema
 const UserSchema = new mongoose.Schema({
-    email: String,
-    password: String
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true, minlength: 6 }
 });
 const User = mongoose.model('User', UserSchema);
 
 // Signup Route
 app.post('/signup', async (req, res) => {
     const { email, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
     
+    if (!email || !password) {
+        return res.status(400).json({ message: "Email and password are required" });
+    }
+
     try {
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ message: "User already exists" });
 
+        const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ email, password: hashedPassword });
+
         await newUser.save();
-        res.status(201).json({ message: "Signup successful, redirecting..." });
+        res.status(201).json({ message: "Signup successful" });
     } catch (err) {
-        res.status(500).json({ message: "Error creating user" });
+        res.status(500).json({ message: "Error creating user", error: err.message });
     }
 });
 
 // Login Route
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ message: "Email and password are required" });
+    }
 
     try {
         const user = await User.findOne({ email });
@@ -53,11 +63,17 @@ app.post('/login', async (req, res) => {
         if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
         const token = jwt.sign({ email: user.email }, JWT_SECRET, { expiresIn: "1h" });
-        res.json({ message: "Login successful", token });
+
+        res.json({ message: "Login successful", token, user: { email: user.email } });
     } catch (err) {
-        res.status(500).json({ message: "Server error" });
+        res.status(500).json({ message: "Server error", error: err.message });
     }
 });
+
+//admin route
+const adminRoutes = require('./routes/admin'); // Add this line
+app.use('/admin', adminRoutes); // Mount admin routes at /admin
+
 
 // Middleware to Protect Pages
 const authenticate = (req, res, next) => {
@@ -71,8 +87,15 @@ const authenticate = (req, res, next) => {
     });
 };
 
+// Protected Route
 app.get('/protected', authenticate, (req, res) => {
-    res.json({ message: "Access granted to protected content" });
+    res.json({ message: "Access granted", user: req.user });
 });
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+// Default Route
+app.get("/", (req, res) => {
+    res.send("Welcome to CourseCave API!");
+});
+
+// Start Server
+app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
