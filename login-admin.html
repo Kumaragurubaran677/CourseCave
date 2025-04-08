@@ -8,10 +8,23 @@
     <link rel="stylesheet" href="css/login.css">
     <title>Login | CourseCave</title>
 </head>
+
 <body>
 
     <div class="container" id="container">
-        
+        <div class="form-container sign-up">
+            <form>
+                <!--<h1>Create Account</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email for registeration</span>!-->
+                <a>To register as Admin - contact support team!</a>
+            </form>
+        </div>
         <div class="form-container sign-in">
             <form>
                 <h1>Sign In</h1>
@@ -21,10 +34,10 @@
                     <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
-                <span>or use your email password</span>-->
-                <input type="email" placeholder="Admin Email">
+                <span>or use your email password</span>!-->
+                <input type="email" placeholder="Email">
                 <input type="password" placeholder="Password">
-                <a>If you forget your credentials contact support team</a>
+                <a>Forget Your Password? - contact support team!</a>
                 <button>Sign In</button>
                 <span>or</span>
                 <a class="admin-button" href="login.html">SignIn as Student</a>
@@ -35,18 +48,18 @@
                 <div class="toggle-panel toggle-left">
                     <h1>Welcome Back!</h1>
                     <p>Enter your personal details to use all of site features</p>
-                    
+                    <button class="hidden" id="login">Sign In</button>
                 </div>
                 <div class="toggle-panel toggle-right">
-                    <h1>Hello, Friend!</h1>
-                    <p>This is admin login, Kindly go back to normal login If you are not a admin</p>
+                    <h1>Hello, ADMIN!</h1>
+                    <p>Register with your personal details to use all of site features</p>
+                    <button class="hidden" id="register">Contact Support team to register as ADMIN</button>
                 </div>
             </div>
         </div>
     </div>
-    
-    <script src="js/login-admin.js"></script>
 
+    <script src="js/login-admin.js"></script>
 </body>
 
 </html>

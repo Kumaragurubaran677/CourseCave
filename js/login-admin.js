@@ -47,21 +47,21 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        const response = await fetch("http://localhost:3000/login", {
+        const response = await fetch("http://localhost:3000/admin/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
         });
-
+        
         const result = await response.json();
 
         if (response.ok) {
             alert("Login Successful!");
-            localStorage.setItem("user", JSON.stringify({
+            localStorage.setItem("admin", JSON.stringify({
                 name: result.name || "",
                 token: result.token
             }));
-            window.location.href = "dashboard.html"; // redirect to dashboard for admin        
+            window.location.href = "dashboard.html";
         } else {
             alert(result.message || "Invalid Credentials!");
         }

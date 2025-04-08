@@ -62,11 +62,10 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <p class="m-0 fw-bold" style="font-size: 25px;"> Course<span
+            <p class="m-0 fw-bold" style="font-size: 25px;">Course<span
                     style="color: #fb873f;">Cave</span></p>
         </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-            style="border: none;">
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -83,9 +82,16 @@
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
-                <a href="login.html" class="nav-item nav-link"><i class="fa fa-user"></i></a>
+                
+                <div class="nav-item nav-link login" id="userDisplay">
+                    <a href="login.html" id="loginLink">Login</a>
+                </div>
                 <a href="#" class="nav-item nav-link">
-                    <div id="google_translate_element"></div>
+
+                <div id="google_translate_element">
+                </div>
+
+
                 </a>
             </div>
         </div>
@@ -123,7 +129,7 @@
                         <div class="overflow-hidden text-center pt-5">
                             <img class="img-fluid" src="img/team-1.png" alt="" style="height: 500px; width: 300px;">
                         </div>
-                        <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                        <!--div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
                             <div class="bg-light d-flex justify-content-center pt-2 px-1">
                                 <a target="_blank" class="btn btn-sm-square btn-primary mx-1"
                                     href="https://www.linkedin.com/in/ajay-panwar-8077b925a/"><i
@@ -133,9 +139,9 @@
                                 <a target="_blank" class="btn btn-sm-square btn-primary mx-1"
                                     href="https://github.com/ajaypanwar7472"><i class="fab fa-github"></i></a>
                             </div>
-                        </div>
+                        </div-->
                         <div class="text-center p-4">
-                            <h5 class="mb-0">Ajay Kumar</h5>
+                            <h5 class="mb-0">Kishore</h5>
                             <small>Team Leader</small>
                         </div>
                     </div>
@@ -145,7 +151,7 @@
                         <div class="overflow-hidden text-center pt-5">
                             <img class="img-fluid" src="img/team-2.png" alt="" style="height: 500px; width: 300px;">
                         </div>
-                        <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                        <!--div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
                             <div class="bg-light d-flex justify-content-center pt-2 px-1">
                                 <a target="_blank" class="btn btn-sm-square btn-primary mx-1"
                                     href="https://www.linkedin.com/in/keerti-vishwkarma-8ba754243/"><i
@@ -155,7 +161,7 @@
                                 <a target="_blank" class="btn btn-sm-square btn-primary mx-1"
                                     href="https://github.com/keerti1924"><i class="fab fa-github"></i></a>
                             </div>
-                        </div>
+                        </div-->
                         <div class="text-center p-4">
                             <h5 class="mb-0">Keerti Vishwkarma</h5>
                             <small>Team Member</small>
@@ -237,6 +243,7 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/userStatus.js"></script>
 
 </body>
 

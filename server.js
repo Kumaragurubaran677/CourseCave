@@ -15,7 +15,11 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected Successfully!"))
   .catch((err) => console.error("❌ MongoDB Connection Failed:", err.message));
 
-app.use(cors()); // Allow all origins for now
+  app.use(cors({
+    origin: 'http://localhost:3000', // or whatever port your frontend runs on
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  })); // Allow all origins for now
 app.use(bodyParser.json());
 
 // Define User Schema
@@ -71,8 +75,30 @@ app.post('/login', async (req, res) => {
 });
 
 //admin route
-const adminRoutes = require('./routes/admin'); // Add this line
-app.use('/admin', adminRoutes); // Mount admin routes at /admin
+const Admin = require('./models/Admin'); // Adjust path as needed
+
+app.post('/admin/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ message: "Email and password are required" });
+    }
+
+    try {
+        const admin = await Admin.findOne({ email });
+        if (!admin) return res.status(400).json({ message: "Invalid credentials" });
+
+        const isMatch = await bcrypt.compare(password, admin.password);
+        if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
+
+        const token = jwt.sign({ email: admin.email }, JWT_SECRET, { expiresIn: "1h" });
+
+        res.json({ message: "Admin login successful", token, name: admin.name });
+    } catch (err) {
+        res.status(500).json({ message: "Server error", error: err.message });
+    }
+});
+
 
 
 // Middleware to Protect Pages
@@ -99,3 +125,46 @@ app.get("/", (req, res) => {
 
 // Start Server
 app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+
+
+// Dashboard
+const fs = require('fs');
+const path = require('path');
+
+// Route to update courses.html
+app.post('/update-courses', (req, res) => {
+    const { category, courseHTML } = req.body;
+
+    if (!category || !courseHTML) {
+        return res.status(400).send("Category and Course HTML are required.");
+    }
+
+    const filePath = path.join(__dirname, 'courses.html'); // adjust if needed
+
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error("Error reading courses.html:", err);
+            return res.status(500).send("Failed to read courses.html.");
+        }
+
+        // Regex to match the correct section by data-category
+        const sectionRegex = new RegExp(`<section[^>]*data-category="${category}"[^>]*>([\\s\\S]*?)</section>`, 'i');
+        const match = data.match(sectionRegex);
+
+        if (!match) {
+            return res.status(404).send(`Section for category "${category}" not found.`);
+        }
+
+        const updatedSection = match[0].replace('</section>', `\n${courseHTML}\n</section>`);
+        const updatedHtml = data.replace(sectionRegex, updatedSection);
+
+        fs.writeFile(filePath, updatedHtml, 'utf8', (writeErr) => {
+            if (writeErr) {
+                console.error("Error writing to courses.html:", writeErr);
+                return res.status(500).send("Failed to update courses.html.");
+            }
+
+            res.send("✅ Course added successfully!");
+        });
+    });
+});

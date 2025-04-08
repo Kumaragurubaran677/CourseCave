@@ -60,11 +60,10 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <p class="m-0 fw-bold" style="font-size: 25px;"> Course<span
+            <p class="m-0 fw-bold" style="font-size: 25px;">Course<span
                     style="color: #fb873f;">Cave</span></p>
         </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-            style="border: none;">
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -81,9 +80,16 @@
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
-                <a href="login.html" class="nav-item nav-link"><i class="fa fa-user"></i></a>
+                
+                <div class="nav-item nav-link login" id="userDisplay">
+                    <a href="login.html" id="loginLink">Login</a>
+                </div>
                 <a href="#" class="nav-item nav-link">
-                    <div id="google_translate_element"></div>
+
+                <div id="google_translate_element">
+                </div>
+
+
                 </a>
             </div>
         </div>
@@ -267,7 +273,7 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
-
+    <script src="js/userStatus.js"></script>
 </body>
 
 </html>

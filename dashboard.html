@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Management Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    
+    <div class="dashboard-container">
+        <h2>Course Management Dashboard</h2>
+        <form id="add-course-form">
+            <label>Category:
+                <select id="course-category">
+                    <option value="DS">Data Science</option>
+                    <option value="web-development">Web Development</option>
+                    <option value="scripts">Scripts</option>
+                    <option value="cloud">Cloud</option>
+                    <option value="ms-es">MS/ES</option>
+                    <option value="ui-ux">UI/UX</option>
+                    <option value="others">Others</option>
+                </select>
+            </label>
+            <label>Course Title: <input type="text" id="course-title" required></label>
+            <label>Image URL: <input type="text" id="course-img" required></label>
+            <label>Paid/Free: 
+                <select id="course-type">
+                    <option value="PAID">Paid</option>
+                    <option value="FREE">Free</option>
+                </select>
+            </label>
+            <label>Rating: <input type="text" id="course-rating"></label>
+            <label>Learners Count: <input type="text" id="course-learners"></label>
+            <label>Level: <input type="text" id="course-level" value="Intermediate"></label>
+            <label>Duration: <input type="text" id="course-duration"></label>
+            <label>Price: <input type="text" id="course-price"></label>
+            <label>Enroll Link: <input type="text" id="course-link"></label>
+            <button type="submit">Add Course</button>
+        </form>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+    <script src="js/userStatus.js"></script>
+    <script src="auth-admin.js"></script>
+
+</body>
+</html>
