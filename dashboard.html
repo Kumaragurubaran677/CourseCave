@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
-    
     <div class="dashboard-container">
         <h2>Course Management Dashboard</h2>
         <form id="add-course-form">
@@ -40,8 +39,12 @@
     </div>
 
     <script src="js/dashboard.js"></script>
-    <script src="js/userStatus.js"></script>
-    <script src="auth-admin.js"></script>
-
+    <script>
+        const admin = JSON.parse(localStorage.getItem("admin"));
+      
+        if (!admin || !admin.token) {
+          window.location.href = "/admin/login"; // Redirect to login if not logged in
+        }
+    </script>
 </body>
 </html>

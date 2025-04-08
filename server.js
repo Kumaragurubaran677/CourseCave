@@ -15,11 +15,7 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected Successfully!"))
   .catch((err) => console.error("❌ MongoDB Connection Failed:", err.message));
 
-  app.use(cors({
-    origin: 'http://localhost:3000', // or whatever port your frontend runs on
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  })); // Allow all origins for now
+  app.use(cors()); // Allow all origins for now
 app.use(bodyParser.json());
 
 // Define User Schema

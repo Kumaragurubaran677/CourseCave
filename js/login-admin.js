@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
         });
-        
+
         const result = await response.json();
 
         if (response.ok) {

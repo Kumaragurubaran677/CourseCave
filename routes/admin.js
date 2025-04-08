@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const Admin = require('../models/admin'); // Import admin model
+const Admin = require('./models/admin'); // Import admin model
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
